@@ -1,0 +1,17 @@
+[app]
+# The full path of the directory to monitor for incoming files.
+directory = "c:\\temp"
+# nfa will only attach files with these extensions
+extensions = ["pdf", "ps"]
+# You can customize your mail message
+[mail]
+from = "from@senderdoma.in"
+to = ["recipient1", "recipient2"]
+subject = "A new file has been created"
+body = "This is the body of the message, you can change this to whatever you want."
+server = "localhost"
+# If you don't need to use authentication to send mail (localhost MTA), just set auth = false
+auth = true
+port = 25
+login = "user"
+password = "this"
