@@ -3,16 +3,11 @@ package main
 import (
 	"github.com/rjeczalik/notify"
 	"github.com/spf13/viper"
+    "github.com/scorredoira/email"
 	"path"
 	"log"
 	"net/smtp"
 	"flag"
-    "github.com/scorredoira/email"
-)
-
-const (
-	SUBJECT = "This is the message subject"
-	BODY = "This is the message body."
 )
 
 // Used to search in the available file extensions slice
@@ -27,7 +22,7 @@ func SliceContainsString(slice []string, s string) bool {
 
 func main() {
 	var config string
-	flag.StringVar(&config, "config", "nfa", "The name of the config file (withour the toml extension.")
+	flag.StringVar(&config, "config", "nfa", "The name of the config file (without the toml extension.")
 	flag.Parse()
 	viper.SetConfigName(config) 
 	viper.AddConfigPath(".")
