@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/rjeczalik/notify"
 	"github.com/spf13/viper"
-    "github.com/scorredoira/email"
+    	"github.com/cryptrol/email"
 	"path"
 	"log"
 	"net/smtp"
@@ -56,8 +56,16 @@ func main() {
 				if err != nil {
 				    log.Println(err)
 				}
-				auth := smtp.PlainAuth("", viper.GetString("mail.login"), viper.GetString("mail.password"), viper.GetString("mail.server"))
-				err = email.Send(viper.GetString("mail.server") + ":" + viper.GetString("mail.port"), auth, m)
+				addr := viper.GetString("mail.server") + ":" + viper.GetString("mail.port")
+				username := viper.GetString("mail.login")
+				password := viper.GetString("mail.password")
+				host := viper.GetString("mail.server")
+				auth := smtp.PlainAuth("", username, password, host)
+				if viper.GetBool("mail.useauthlogin") {
+					auth = email.LoginAuth(username, password, host)
+				}
+				skipver := viper.GetBool("mail.nocertverify")
+				err = email.Send(addr, auth, m, skipver )
 				if err != nil {
 					log.Println("Can't send mail : ", err)
 				}
